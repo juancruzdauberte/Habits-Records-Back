@@ -2,10 +2,8 @@ import { Document, Types } from "mongoose";
 
 export interface UserModel extends Document {
   email: string;
-  password: string;
-  verified: boolean;
-  forgotPasswordCode: string;
-  forgotPasswordCodeValidation: string;
+  name: string;
+  googleId: string;
 }
 
 export interface HabitModel extends Document {

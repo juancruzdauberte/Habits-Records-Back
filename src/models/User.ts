@@ -3,30 +3,20 @@ import { type UserModel } from "../types/types";
 
 const UserSchema: Schema = new Schema(
   {
+    googleId: {
+      type: String,
+      trim: true,
+      unique: true,
+    },
     email: {
       type: String,
-      required: [true, "El correo es requerido"],
       trim: true,
-      unique: [true, "El correo debe ser unico "],
+      unique: true,
       lowercase: true,
     },
-    password: {
+    name: {
       type: String,
-      required: [true, "La contraseña es requerida"],
       trim: true,
-      select: false,
-    },
-    verified: {
-      type: Boolean,
-      default: false,
-    },
-    forgotPasswordCode: {
-      type: String,
-      select: false,
-    },
-    forgotPasswordCodeValidation: {
-      type: String,
-      select: false,
     },
   },
   {
