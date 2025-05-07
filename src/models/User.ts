@@ -18,6 +18,10 @@ const UserSchema: Schema = new Schema(
       type: String,
       trim: true,
     },
+    picture: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

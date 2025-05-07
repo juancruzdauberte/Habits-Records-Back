@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routers/auth.routes.ts";
+import habitRoutes from "./routers/habits.routes.ts";
 import { configurePaspport } from "./config/passport.ts";
 import passport from "passport";
 import session from "express-session";
@@ -56,3 +57,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/habits", habitRoutes);

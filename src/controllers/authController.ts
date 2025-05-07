@@ -1,7 +1,5 @@
 import passport from "passport";
 import { Response, Request } from "express";
-import jwt from "jsonwebtoken";
-import config from "../config/config";
 
 class AuthController {
   static googleAuth = passport.authenticate("google", {
@@ -9,21 +7,18 @@ class AuthController {
   });
 
   static redirectAfterSucces = (req: Request, res: Response) => {
-    const user = req.user as { id: string; email: string };
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      config.JWT_SECRET!,
-      {
-        expiresIn: "30m",
-      }
-    );
+    const user: any = req.user;
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      sameSite: "strict",
-      maxAge: 30 * 60 * 1000,
+    res.status(200).json({
+      message: "Autenticación exitosa",
+      user: {
+        id: user.googleId,
+        name: user.name,
+        email: user.email,
+        pictute: user.picture,
+      },
+      token: user.token,
     });
-    res.redirect("http://localhost:2173/home");
   };
 }
 

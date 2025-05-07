@@ -10,4 +10,5 @@ router.get(
   logInMiddleware,
   AuthController.redirectAfterSucces
 );
+
 export default router;

@@ -10,6 +10,7 @@ const HabitSchema: Schema = new Schema(
     },
     description: {
       type: String,
+      default: "",
     },
     user: {
       type: Schema.Types.ObjectId,

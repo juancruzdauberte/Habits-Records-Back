@@ -1,19 +1,40 @@
+import { Request } from "express";
 import { Document, Types } from "mongoose";
 
-export interface UserModel extends Document {
+export type UserModel = Document & {
   email: string;
   name: string;
   googleId: string;
-}
+  picture: string;
+};
 
-export interface HabitModel extends Document {
+export type AuthenticatedRequest = Request & {
+  user?: {
+    id: string;
+    email: string;
+    googleId: string;
+  };
+};
+
+export type CreateHabitBody = {
+  title: string;
+  description: string;
+};
+
+export type JwtPayloadUser = {
+  id: string;
+  email: string;
+  googleId: string;
+};
+
+export type HabitModel = Document & {
   title: string;
   description?: string;
   user: Types.ObjectId;
-}
+};
 
-export interface HabitTrackingModel extends Document {
+export type HabitTrackingModel = Document & {
   habit: Types.ObjectId;
   date: Date;
   completed: boolean;
-}
+};

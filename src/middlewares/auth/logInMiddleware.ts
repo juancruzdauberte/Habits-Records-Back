@@ -1,6 +1,7 @@
 import passport from "passport";
+import config from "../../config/config";
 
 export const logInMiddleware = passport.authenticate("google", {
-  failureRedirect: "http://localhost:2173/errorlogin",
+  failureRedirect: `${config.CLIENT_URL}/errorlogin`,
   failureMessage: "Access denied",
 });

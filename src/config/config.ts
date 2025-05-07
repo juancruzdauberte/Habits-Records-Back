@@ -9,6 +9,7 @@ const config = {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET,
+  CLIENT_URL: process.env.CLIENT_URL,
 };
 
 export default config;
