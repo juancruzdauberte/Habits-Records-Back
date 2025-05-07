@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Response, NextFunction, Request } from "express";
+import { Response, NextFunction } from "express";
 import config from "../../config/config";
 import {
   type AuthenticatedRequest,
@@ -29,7 +29,6 @@ export const authRequire = (
     req.user = {
       id: user.id,
       email: user.email,
-      googleId: user.googleId,
     };
     next();
   });

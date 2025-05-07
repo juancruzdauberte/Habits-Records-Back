@@ -19,17 +19,12 @@ const habitSchemaValidator: Schema = {
     trim: true,
     optional: { options: { nullable: true } },
     isLength: {
-      options: {
-        max: 50,
-      },
+      options: { max: 50 },
       errorMessage: "Máximo 50 caracteres",
-    },
-    notEmpty: {
-      errorMessage: "El título es obligatorio",
     },
     escape: true,
     isString: {
-      errorMessage: "Solo carateres permitidos",
+      errorMessage: "Solo caracteres permitidos",
     },
   },
 };

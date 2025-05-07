@@ -30,15 +30,14 @@ export const configurePaspport = () => {
             {
               id: user.id,
               email: user.email,
-              name: user.name,
-              googleId: user.googleId,
             },
             config.JWT_SECRET!,
             { expiresIn: "1h" }
           );
 
           const userWithToken = {
-            ...user.toObject(),
+            id: user.id,
+            email: user.email,
             token,
           };
 
@@ -51,12 +50,12 @@ export const configurePaspport = () => {
   );
 
   passport.serializeUser((user: any, done) => {
-    done(null, user.googleId);
+    done(null, user.id);
   });
 
   passport.deserializeUser(async (id: string, done) => {
     try {
-      const user = await Users.findById({ googleId: id });
+      const user = await Users.findOne({ id });
       done(null, user as HydratedDocument<UserModel>);
     } catch (error) {
       done(error, null);

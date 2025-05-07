@@ -12,10 +12,8 @@ class AuthController {
     res.status(200).json({
       message: "Autenticación exitosa",
       user: {
-        id: user.googleId,
-        name: user.name,
+        id: user.id,
         email: user.email,
-        pictute: user.picture,
       },
       token: user.token,
     });
