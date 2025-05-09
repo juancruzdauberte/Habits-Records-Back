@@ -10,6 +10,7 @@ const config = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET,
   CLIENT_URL: process.env.CLIENT_URL,
+  NODE_ENV: process.env.NODE_ENV,
 };
 
 export default config;

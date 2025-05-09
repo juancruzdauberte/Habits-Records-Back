@@ -1,7 +1,16 @@
+import { NextFunction, Request, Response } from "express";
 import passport from "passport";
-import config from "../../config/config";
 
-export const logInMiddleware = passport.authenticate("google", {
-  failureRedirect: `${config.CLIENT_URL}/errorlogin`,
-  failureMessage: "Access denied",
-});
+export const logInMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  passport.authenticate("google", { session: false }, (err, user, _info) => {
+    if (err || !user) {
+      return res.status(401).json({ message: "Autenticación fallida" });
+    }
+    req.user = user;
+    next();
+  })(req, res, next);
+};

@@ -8,11 +8,13 @@ export type UserModel = Document & {
   picture: string;
 };
 
-type AuthenticatedRequest = Request & {
-  user?: {
-    id: string;
-    email: string;
-  };
+export type UserPayload = {
+  id: string;
+  email: string;
+};
+
+export type AuthenticatedRequest = Request & {
+  user?: UserPayload;
 };
 
 type CreateHabitBody = {
@@ -22,12 +24,6 @@ type CreateHabitBody = {
 
 export type HabitRequest = AuthenticatedRequest & {
   body: CreateHabitBody;
-};
-
-export type JwtPayloadUser = {
-  id: string;
-  email: string;
-  googleId: string;
 };
 
 export type HabitModel = Document & {

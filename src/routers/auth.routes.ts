@@ -8,7 +8,7 @@ router.get("/google", AuthController.googleAuth);
 router.get(
   "/google/callback",
   logInMiddleware,
-  AuthController.redirectAfterSucces
+  AuthController.redirectAfterLogin
 );
 
 export default router;

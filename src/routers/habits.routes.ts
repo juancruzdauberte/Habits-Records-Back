@@ -13,5 +13,14 @@ router.post(
   habitValidator,
   HabitController.createHabit
 );
+router.get("/", authRequire, HabitController.getHabits);
+router.delete("/:id", authRequire, HabitController.deleteHabit);
+router.patch(
+  "/:id",
+  authRequire,
+  habitSchema,
+  habitValidator,
+  HabitController.updateHabit
+);
 
 export default router;

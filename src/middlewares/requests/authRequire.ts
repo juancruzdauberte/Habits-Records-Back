@@ -1,30 +1,26 @@
 import jwt from "jsonwebtoken";
-import { Response, NextFunction } from "express";
+import { Response, NextFunction, Request } from "express";
 import config from "../../config/config";
-import {
-  type AuthenticatedRequest,
-  type JwtPayloadUser,
-} from "../../types/types";
+import { type UserPayload } from "../../types/types";
 
 export const authRequire = (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader?.split(" ")[1];
+  const token = req.headers["authorization"]?.split(" ")[1];
 
   if (!token) {
-    res.status(401).json({ message: "Token requerido" });
+    res.status(403).json({ message: "Se requiere el token" });
     return;
   }
 
   jwt.verify(token, config.JWT_SECRET!, (err, decoded) => {
-    if (err || typeof decoded !== "object") {
+    if (err) {
       res.status(403).json({ message: "Token inválido o expirado" });
       return;
     }
-    const user = decoded as JwtPayloadUser;
+    const user = decoded as UserPayload;
 
     req.user = {
       id: user.id,

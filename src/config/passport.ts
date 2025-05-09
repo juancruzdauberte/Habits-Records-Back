@@ -4,7 +4,6 @@ import config from "./config";
 import Users from "../models/User";
 import { UserModel } from "../types/types";
 import { HydratedDocument } from "mongoose";
-import jwt from "jsonwebtoken";
 
 export const configurePaspport = () => {
   passport.use(
@@ -26,39 +25,11 @@ export const configurePaspport = () => {
             });
             await user.save();
           }
-          const token = jwt.sign(
-            {
-              id: user.id,
-              email: user.email,
-            },
-            config.JWT_SECRET!,
-            { expiresIn: "1h" }
-          );
-
-          const userWithToken = {
-            id: user.id,
-            email: user.email,
-            token,
-          };
-
-          return done(null, userWithToken);
+          done(null, user);
         } catch (error) {
-          return done(error, false);
+          done(error, false);
         }
       }
     )
   );
-
-  passport.serializeUser((user: any, done) => {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser(async (id: string, done) => {
-    try {
-      const user = await Users.findOne({ id });
-      done(null, user as HydratedDocument<UserModel>);
-    } catch (error) {
-      done(error, null);
-    }
-  });
 };
