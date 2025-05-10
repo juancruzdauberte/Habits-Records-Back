@@ -8,13 +8,12 @@ import authRoutes from "./routers/auth.routes.ts";
 import habitRoutes from "./routers/habits.routes.ts";
 import { configurePaspport } from "./config/passport.ts";
 import passport from "passport";
-import session from "express-session";
 
 connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "http://localhst:2173",
+    origin: config.CLIENT_URL,
     credentials: true,
   })
 );
