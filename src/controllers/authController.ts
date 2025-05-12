@@ -1,9 +1,9 @@
 import passport from "passport";
-import { Response, Request, NextFunction } from "express";
+import { Response, Request } from "express";
 import { AuthenticatedRequest } from "../types/types";
 import { generateJwt } from "../utils/generateJwt";
-import jwt from "jsonwebtoken";
 import config from "../config/config";
+
 class AuthController {
   static googleAuth = passport.authenticate("google", {
     scope: ["profile", "email"],

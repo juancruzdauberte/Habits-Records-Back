@@ -7,11 +7,15 @@ class HabitTrackingController {
   static getHabitsTracking = async (req: Request, res: Response) => {
     const { id } = (req as AuthenticatedRequest).user!;
     try {
-      const tracking = await HabitsTracking.find({ user: id });
+      const tracking = await HabitsTracking.find({ user: id })
+        .populate("habit", "title description")
+        .populate("user", "email")
+        .exec();
       if (!tracking) {
         res.status(404).json({ message: "Lista de tracking no encontrada" });
         return;
       }
+
       res.status(200).json({
         message: "Tracking de hábitos obtenidos correctamente",
         tracking,
@@ -61,9 +65,15 @@ class HabitTrackingController {
         user: userId,
       });
 
-      res
-        .status(201)
-        .json({ message: "Hábito realizado correctamente", tracking });
+      const populatedTracking = await HabitsTracking.findById(tracking._id)
+        .populate("habit", "title description")
+        .populate("user", "email")
+        .exec();
+
+      res.status(201).json({
+        message: "Hábito realizado correctamente",
+        tracking: populatedTracking,
+      });
     } catch (error) {
       console.log(error);
       res

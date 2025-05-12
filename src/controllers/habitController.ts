@@ -36,7 +36,7 @@ class HabitController {
   static getHabits = async (req: Request, res: Response) => {
     const { id } = (req as AuthenticatedRequest).user!;
     try {
-      const habits = await Habits.find({ user: id });
+      const habits = await Habits.find({ user: id }).populate("user", "email");
 
       if (!habits || habits.length === 0) {
         res.status(404).json({ message: "No existen habitos para el usuario" });
