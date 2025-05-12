@@ -12,18 +12,18 @@ class AuthController {
   static redirectAfterLogin = (req: Request, res: Response) => {
     const { id, email } = (req as AuthenticatedRequest).user!;
     const token = generateJwt({ id, email });
-    // res.status(200).json({
-    //   message: "Autenticación exitosa",
-    //   token,
-    // });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
+    res.status(200).json({
+      message: "Autenticación exitosa",
+      token,
     });
 
-    res.redirect(`${config.CLIENT_URL}/home`);
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: "lax",
+    // });
+
+    // res.redirect(`${config.CLIENT_URL}/home`);
   };
 
   static logOut = (req: Request, res: Response) => {

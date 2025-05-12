@@ -17,6 +17,11 @@ const HabitTrackingSchema: Schema = new Schema(
       type: Boolean,
       default: false,
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Users",
+    },
   },
   { timestamps: true }
 );

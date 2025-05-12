@@ -6,6 +6,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routers/auth.routes.ts";
 import habitRoutes from "./routers/habits.routes.ts";
+import habitsTrackingRoutes from "./routers/habitTracking.route.ts";
 import { configurePaspport } from "./config/passport.ts";
 import passport from "passport";
 
@@ -45,3 +46,4 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/habits", habitRoutes);
+app.use("/api/habitstracking", habitsTrackingRoutes);
