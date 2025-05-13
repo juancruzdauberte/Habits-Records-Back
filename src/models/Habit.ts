@@ -16,10 +16,13 @@ const HabitSchema: Schema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Users",
+      index: true,
     },
   },
   { timestamps: true }
 );
+
+HabitSchema.index({ user: 1, title: 1 }, { unique: true });
 
 const Habits = model<HabitModel>("Habits", HabitSchema);
 

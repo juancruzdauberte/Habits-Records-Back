@@ -2,8 +2,6 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import config from "./config";
 import Users from "../models/User";
-import { UserModel } from "../types/types";
-import { HydratedDocument } from "mongoose";
 
 export const configurePaspport = () => {
   passport.use(

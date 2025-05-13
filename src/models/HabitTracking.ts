@@ -21,12 +21,14 @@ const HabitTrackingSchema: Schema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Users",
+      index: true,
     },
   },
   { timestamps: true }
 );
 
 HabitTrackingSchema.index({ habit: 1, date: 1 }, { unique: true });
+HabitTrackingSchema.index({ user: 1, date: 1 });
 
 const HabitsTracking = model<HabitTrackingModel>(
   "HabitsTracking",

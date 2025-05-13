@@ -45,6 +45,7 @@ class HabitTrackingController {
       }
 
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
       const alreadyCompleted = await HabitsTracking.findOne({
         habit: habitId,

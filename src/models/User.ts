@@ -7,6 +7,7 @@ const UserSchema: Schema = new Schema(
       type: String,
       trim: true,
       unique: true,
+      sparse: true,
     },
     email: {
       type: String,
