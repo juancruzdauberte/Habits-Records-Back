@@ -2,7 +2,7 @@ import { Router } from "express";
 import HabitController from "../controllers/habitController";
 import { habitSchema } from "../middlewares/habits/habitSchemaValidator";
 import { habitValidator } from "../middlewares/habits/habitValidator";
-import { authRequire } from "../middlewares/requests/authRequire";
+import { authRequire } from "../middlewares/requests/authenticatedMiddleware";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authRequire } from "../middlewares/requests/authRequire";
+import { authRequire } from "../middlewares/requests/authenticatedMiddleware";
 import HabitTrackingController from "../controllers/habitTracking";
 
 const router = Router();
