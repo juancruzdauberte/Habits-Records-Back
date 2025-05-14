@@ -9,12 +9,13 @@ import habitRoutes from "./routers/habits.routes.ts";
 import habitsTrackingRoutes from "./routers/habitTracking.route.ts";
 import { configurePaspport } from "./config/passport.ts";
 import passport from "passport";
+import session from "express-session";
 
 connectDB();
 const app = express();
 app.use(
   cors({
-    origin: config.CLIENT_URL,
+    origin: "http://localhost:8080",
     credentials: true,
   })
 );
@@ -30,6 +31,18 @@ app.use(
 );
 configurePaspport();
 app.use(passport.initialize());
+
+app.use(
+  session({
+    secret: config.EXPRESS_SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());
