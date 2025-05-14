@@ -1,7 +1,7 @@
 import { Router } from "express";
 import AuthController from "../controllers/authController.ts";
 import { logInMiddleware } from "../middlewares/auth/logInMiddleware.ts";
-import { isAuthenticated } from "../middlewares/auth/authenticatedMiddleware.ts";
+import { authRequire } from "../middlewares/requests/authenticatedMiddleware.ts";
 
 const router = Router();
 
@@ -11,7 +11,7 @@ router.get(
   logInMiddleware,
   AuthController.redirectAfterLogin
 );
-router.get("/status", isAuthenticated, AuthController.userStatus);
-router.get("/logout", isAuthenticated, AuthController.logOut);
+router.get("/status", authRequire, AuthController.userStatus);
+router.get("/logout", authRequire, AuthController.logOut);
 
 export default router;

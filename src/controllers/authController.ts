@@ -12,16 +12,18 @@ class AuthController {
   static redirectAfterLogin = (req: Request, res: Response) => {
     const { id, email } = (req as AuthenticatedRequest).user!;
     const token = generateJwt({ id, email });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 1000 * 60 * 60 * 2,
+    });
+
     res.status(200).json({
       message: "Autenticación exitosa",
       token,
     });
-
-    // res.cookie("token", token, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: "lax",
-    // });
 
     // res.redirect(`${config.CLIENT_URL}/home`);
   };
@@ -29,16 +31,16 @@ class AuthController {
   static logOut = (req: Request, res: Response) => {
     req.logout((err) => {
       if (err) {
-        return res.status(500).json({ message: "Error al cerrar sesión" });
+        res.status(500).json({ message: "Error al cerrar sesión" });
+        return;
       }
-
       res.clearCookie("token", {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: "lax",
       });
-
-      res.redirect(`${config.CLIENT_URL}`);
+      res.status(200).json({ message: "Sesión cerrada exitosamente" });
+      // res.redirect(`${config.CLIENT_URL}`);
     });
   };
 
