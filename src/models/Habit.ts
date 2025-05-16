@@ -12,6 +12,11 @@ const HabitSchema: Schema = new Schema(
       type: String,
       default: "",
     },
+    doIn: {
+      type: String,
+      default: "",
+      required: true,
+    },
     user: {
       type: Schema.Types.ObjectId,
       required: true,

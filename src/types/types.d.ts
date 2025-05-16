@@ -26,9 +26,12 @@ export type HabitRequest = AuthenticatedRequest & {
   body: CreateHabitBody;
 };
 
+type doInType = "Mañana" | "Tarde" | "Noche" | "";
+
 export type HabitModel = Document & {
   title: string;
   description?: string;
+  doIn: doInType;
   user: Types.ObjectId;
 };
 

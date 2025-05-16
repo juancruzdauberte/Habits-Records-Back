@@ -20,12 +20,12 @@ class AuthController {
       maxAge: 1000 * 60 * 60 * 2,
     });
 
-    res.status(200).json({
-      message: "Autenticación exitosa",
-      token,
-    });
+    // res.status(200).json({
+    //   message: "Autenticación exitosa",
+    //   token,
+    // });
 
-    // res.redirect(`${config.CLIENT_URL}/home`);
+    res.redirect(`${config.CLIENT_URL}/home`);
   };
 
   static logOut = (req: Request, res: Response) => {
@@ -40,7 +40,6 @@ class AuthController {
         sameSite: "lax",
       });
       res.status(200).json({ message: "Sesión cerrada exitosamente" });
-      // res.redirect(`${config.CLIENT_URL}`);
     });
   };
 
@@ -49,7 +48,7 @@ class AuthController {
       res.json({ login: true, user: req.user });
       return;
     } else {
-      res.status(401).json({ login: false });
+      res.status(401).json({ login: false, user: null });
       return;
     }
   };

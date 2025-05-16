@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import Habits from "../models/Habit";
 import { AuthenticatedRequest, type HabitRequest } from "../types/types";
+import HabitsTracking from "../models/HabitTracking";
 
 class HabitController {
   static createHabit = async (req: Request, res: Response) => {
     try {
-      const { title, description } = req.body;
+      const { title, description, doIn } = req.body;
       if (!req.user) {
         res.status(401).json({ message: "Usuario no autenticado" });
         return;
@@ -22,6 +23,7 @@ class HabitController {
       const habit = new Habits({
         title,
         description,
+        doIn,
         user: id,
       });
       await habit.save();
@@ -54,7 +56,7 @@ class HabitController {
   static deleteHabit = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-      const habit = Habits.findById(id);
+      const habit = await Habits.findById(id);
 
       if (!habit) {
         res.status(404).json({ message: "Hábito no encontrado" });
@@ -62,7 +64,11 @@ class HabitController {
       }
 
       await Habits.findByIdAndDelete(id);
-      res.status(200).json({ message: "Habito eliminado exitosamente" });
+      await HabitsTracking.deleteMany({ habit: id });
+
+      res
+        .status(200)
+        .json({ message: "Habito y trackings eliminados exitosamente" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Error al eliminar el hábito" });
